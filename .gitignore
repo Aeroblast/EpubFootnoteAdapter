@@ -3,5 +3,5 @@ temp/
 omnisharp.json
 obj/
 .vscode/
-bin/debug/
-bin/release/
+bin/
+kindlegen.exe

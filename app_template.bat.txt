@@ -1,0 +1,3 @@
+cd /d %~dp0\lib
+EpubFootnoteAdapter %*
+pause

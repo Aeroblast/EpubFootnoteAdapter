@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 namespace EpubFootnoteAdapter
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Epub Footnote Adapter 20190412  [https://github.com/Aeroblast/EpubFootnoteAdapter]");
             if (args.Length > 0)
             {
                 if (Path.GetExtension(args[0]).ToLower() == ".epub" && File.Exists(args[0]))
@@ -46,14 +48,32 @@ namespace EpubFootnoteAdapter
                     new ProcOPF("temp");
                     Util.DeleteEmptyDir("temp");
                     string outname = Path.GetFileNameWithoutExtension(args[0]) + " [FootnoteAdapted].epub";
-                    Util.Packup(Path.Combine(Path.GetDirectoryName(args[0]), outname));
+                    outname=Path.Combine(Path.GetDirectoryName(args[0]), outname);
+                    Util.Packup(outname);
                     Util.DeleteDir("temp");
+
+                    if (File.Exists("postproc.bat"))
+                    {
+                        Process p = new Process();
+                        p.StartInfo.FileName = "postproc.bat";
+                        p.StartInfo.Arguments = "\"" + outname + "\"";
+                        p.Start();
+
+                    }
+                    else
+                    if (File.Exists("..\\postproc.bat"))
+                    {
+                        Process p = new Process();
+                        p.StartInfo.FileName = "..\\postproc.bat";
+                        p.StartInfo.Arguments = "\"" + outname + "\"";
+                        p.Start();
+                    }
                 }
                 else
                     Console.WriteLine("Invalid Input File");
             }
             else
-                Console.WriteLine("Usage: <epub file> [<output name>]");
+                Console.WriteLine("Usage: <epub file>");
 
         }
 
