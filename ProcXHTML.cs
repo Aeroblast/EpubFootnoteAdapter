@@ -44,7 +44,10 @@ namespace EpubFootnoteAdapter
                 XTag tag = new XTag(scpt.Value);
                 if (tag.GetAttribute("src").Contains("notereplace.js"))
                 {
-                    text = text.Remove(scpt.Index, scpt.Length);
+                    string scpt_end="</script>";
+                    int sei=text.IndexOf(scpt_end,scpt.Index);
+                    if(sei<0){Log.log("Error:Unclosed script tag.");break;}
+                    text = text.Remove(scpt.Index, sei-scpt.Index+scpt_end.Length);break;
                 }
                 else
                 {
