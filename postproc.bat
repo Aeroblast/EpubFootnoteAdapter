@@ -1,0 +1,1 @@
+kindlegen %1 -dont_append_source

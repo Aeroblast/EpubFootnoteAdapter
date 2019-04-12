@@ -1,0 +1,7 @@
+*.epub
+temp/
+omnisharp.json
+obj/
+.vscode/
+bin/debug/
+bin/release/
