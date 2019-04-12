@@ -2,6 +2,12 @@
 将EPUB中的脚注修改为兼容性高的格式
 
 兼容目标为Apple Books, Microsoft Edge(EdgeHTML), 多看, Kindlegen
+# 使用方法
+把需要处理的epub拖到EpubFootnoteAdapter.bat上。
+
+如果将项目下载到本地编译，需要安装dotnet core SDK。如果使用Release则可以直接使用。
+
+输出的文档可以有一步自定义处理，具体例子见postproc.bat。Release版中的postproc.bat调用了kindlegen生成mobi，有其他需求可以自己编写。
 
 # 这个程序会做什么？
 这个程序将会进行一些处理，使epub文档的弹出式注释能在各个平台上正常工作
