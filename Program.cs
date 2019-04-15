@@ -58,7 +58,7 @@ namespace EpubFootnoteAdapter
                         p.StartInfo.FileName = "postproc.bat";
                         p.StartInfo.Arguments = "\"" + outname + "\"";
                         p.Start();
-
+                        p.WaitForExit();
                     }
                     else
                     if (File.Exists("..\\postproc.bat"))

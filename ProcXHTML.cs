@@ -11,7 +11,7 @@ namespace EpubFootnoteAdapter
         public List<string> css = new List<string>();
         public ProcXHTML(string filename)
         {
-            Log.log("-------"+Path.GetFileName(filename)+"---------");
+            Log.log("-------" + Path.GetFileName(filename) + "---------");
             this.filename = filename;
             text = File.ReadAllText(filename);
             CheckFootnotes();
@@ -44,10 +44,12 @@ namespace EpubFootnoteAdapter
                 XTag tag = new XTag(scpt.Value);
                 if (tag.GetAttribute("src").Contains("notereplace.js"))
                 {
-                    string scpt_end="</script>";
-                    int sei=text.IndexOf(scpt_end,scpt.Index);
-                    if(sei<0){Log.log("Error:Unclosed script tag.");break;}
-                    text = text.Remove(scpt.Index, sei-scpt.Index+scpt_end.Length);break;
+                    string scpt_end = "</script>";
+                    int sei = text.IndexOf(scpt_end, scpt.Index);
+                    if (sei < 0) { Log.log("Error:Unclosed script tag."); break; }
+                    text = text.Remove(scpt.Index, sei - scpt.Index + scpt_end.Length); 
+                    Log.log("Removed reference to notereplace.js");
+                    break;
                 }
                 else
                 {
@@ -71,8 +73,8 @@ namespace EpubFootnoteAdapter
                 string s = ms[0].Groups[0].Value;
                 if (!s.Contains("xmlns:epub"))
                 {
-                    text=text.Replace(s, s.Insert(s.Length - 1, " xmlns:epub=\"http://www.idpf.org/2007/ops\""));
-                    Log.log( "Added xmlns:epub to "+filename);
+                    text = text.Replace(s, s.Insert(s.Length - 1, " xmlns:epub=\"http://www.idpf.org/2007/ops\""));
+                    Log.log("Added xmlns:epub to " + filename);
                 }
             }
         }
@@ -96,7 +98,7 @@ namespace EpubFootnoteAdapter
         }
         void ProcNote(Match m, XTag tag)
         {
-            string note_id="", ref_id;
+            string note_id = "", ref_id;
             //Link tag solve
             {
                 var a = tag.GetClassNames();
@@ -117,18 +119,16 @@ namespace EpubFootnoteAdapter
             }
             {
                 string href = tag.GetAttribute("href");
-                if (href == "") 
-                { Log.log("Error:Cannot find href. id="+note_id); return; }
-                if (href[0] != '#')
-                 { Log.log("Error:href cannot solve:"+href); return; }
-                note_id = href.Substring(1);
+                int pt=href.IndexOf('#');
+                if (pt <0)
+                { Log.log("Error:Not a valid link :"+href+""); return; }
+                if(pt!=0){Log.log("Warn: href=\":"+href+"\"");}
+                note_id = href.Substring(pt+1);
             }
-            ref_id = tag.GetAttribute("id");
-            if (ref_id == "")
-            {
-                ref_id = note_id + "_ref";
-                tag.SetAttribute("id", ref_id);
-            }
+
+            ref_id = note_id + "_ref";
+            tag.SetAttribute("id", ref_id);
+
             text = text.Remove(m.Index, m.Length);
             text = text.Insert(m.Index, tag.ToString());
 
@@ -172,7 +172,7 @@ namespace EpubFootnoteAdapter
                     }
                     else
                     {
-                        Log.log("Error:Found note but failure on parsing. id="+note_id); return;
+                        Log.log("Error:Found note but failure on parsing. id=" + note_id); return;
                     }
                     break;
                 }
@@ -211,7 +211,7 @@ namespace EpubFootnoteAdapter
             text = text.Remove(index, length);
             text = text.Insert(index, note_full);
 
-            Log.log("Formated:" + note_content);
+            Log.log("Formated:" +note_id+":"+ note_content);
             contain_footnote = true;
         }
 
