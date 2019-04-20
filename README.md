@@ -22,7 +22,7 @@
 
 `` <a class="duokan-footnote" epub:type="noteref" href="#note1" id="note1_ref"> ``
 
-即 满足某一种注释链接的a标签将会被处理，使其满足epub:type属性(除多看外的阅读器)和class的私有属性(多看)，在该标签没有id的情况下补充一个id(用于Kindle的反向链接)
+即 满足某一种注释链接的a标签将会被处理，使其满足epub:type属性(除多看外的阅读器)和class的私有属性(多看)，并且生成一个id用于Kindle的反向链接
 
 
 ## 注释本体
