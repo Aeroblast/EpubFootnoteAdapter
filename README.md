@@ -1,7 +1,10 @@
 # Epub Footnote Adapter
-将EPUB中的脚注修改为兼容性高的格式
+将EPUB中的脚注修改为兼容性高的格式。
 
 兼容目标为Apple Books, Microsoft Edge(EdgeHTML), 多看, Kindlegen
+
+源文档中符合任意一个上述平台的弹出注释格式的脚注，将被修改为同时可在上述平台显示为弹出注释的格式。
+
 # 使用方法
 把需要处理的epub拖到EpubFootnoteAdapter.bat上。
 
