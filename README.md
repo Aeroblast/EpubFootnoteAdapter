@@ -1,4 +1,4 @@
-# 已经合并到 [https://github.com/Aeroblast/AeroEpubProcesser/tree/master/src/FootnoteAdapt] 此处不再维护
+# 已经合并到 [新项目](https://github.com/Aeroblast/AeroEpubProcesser/tree/master/src/FootnoteAdapt) 此处不再维护
 
 # Epub Footnote Adapter
 将EPUB中的脚注修改为兼容性高的格式。
